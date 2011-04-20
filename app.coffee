@@ -1,0 +1,25 @@
+app = require('express').createServer()
+
+app.register '.coffee', require 'coffeekup'
+app.set 'view engine', 'coffee'
+app.set 'view options', layout: false
+
+app.get '/css/:path', (req, res) ->
+	res.sendfile "css/#{req.params.path}"
+
+app.get '/js/:path', (req, res) ->
+	res.sendfile "js/#{req.params.path}"
+
+app.get '/', (req, res) ->
+	res.render 'index', context:
+				title: 'Node Pong'
+				copyright: '&copy Chris McBride'
+
+app.listen 80
+
+io = require 'socket.io'
+socket = io.listen app
+
+socket.on 'connection', (client) ->
+	client.on 'message', (message) ->
+		client.broadcast message
