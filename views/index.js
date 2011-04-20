@@ -50,14 +50,6 @@
               stroke: 'blue',
               'stroke-width': '4',
               fill: 'white'
-            }, function() {
-              return animate({
-                attributeName: 'y',
-                from: '20',
-                to: '50',
-                begin: 'accessKey(&#38)',
-                dur: '1s'
-              });
             });
             return rect({
               id: 'paddle2',
