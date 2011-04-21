@@ -1,5 +1,6 @@
 (function() {
   var app, io, socket;
+  var __hasProp = Object.prototype.hasOwnProperty;
   app = require('express').createServer();
   app.register('.coffee', require('coffeekup'));
   app.set('view engine', 'coffee');
@@ -24,6 +25,18 @@
   io = require('socket.io');
   socket = io.listen(app);
   socket.on('connection', function(client) {
+    var clientId, count, _ref;
+    count = 0;
+    _ref = socket.clients;
+    for (clientId in _ref) {
+      if (!__hasProp.call(_ref, clientId)) continue;
+      client = _ref[clientId];
+      count++;
+    }
+    if (count > 2) {
+      client._onDisconnect();
+    }
+    client.send('Player:' + count);
     return client.on('message', function(message) {
       return client.broadcast(message);
     });

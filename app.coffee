@@ -21,5 +21,13 @@ io = require 'socket.io'
 socket = io.listen app
 
 socket.on 'connection', (client) ->
+	count = 0
+	for own clientId, client of socket.clients
+		count++
+
+	client._onDisconnect() if count > 2
+
+	client.send 'Player:' + count
+
 	client.on 'message', (message) ->
 		client.broadcast message
