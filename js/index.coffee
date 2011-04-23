@@ -13,7 +13,7 @@ $(document).ready ->
 			when 'Player'
 				playerNum = rest
 				opponentNum = if playerNum is 2 then 1 else 2
-			when 'M' then moveOpponent()
+			when 'M' then moveOpponent(rest)
 
 	$(document).keydown (e) ->
 		if(e.keyCode is 38 or e.keyCode is 40)

@@ -14,7 +14,7 @@
           playerNum = rest;
           return opponentNum = playerNum === 2 ? 1 : 2;
         case 'M':
-          return moveOpponent();
+          return moveOpponent(rest);
       }
     });
     $(document).keydown(function(e) {
