@@ -1,4 +1,8 @@
 require.paths.unshift('./node_modules')
+
+port = process.env.VCAP_APP_PORT or 3000
+host = process.env.VCAP_APP_HOST or 'localhost'
+
 app = require('express').createServer()
 
 app.register '.coffee', require 'coffeekup-svg'
@@ -16,7 +20,7 @@ app.get '/', (req, res) ->
 				title: 'Node Pong'
 				copyright: '&copy Chris McBride'
 
-app.listen process.env.VMC_APP_PORT || 3000
+app.listen port, host
 
 io = require 'socket.io'
 socket = io.listen app

@@ -1,7 +1,9 @@
 (function() {
-  var app, io, socket;
+  var app, host, io, port, socket;
   var __hasProp = Object.prototype.hasOwnProperty;
   require.paths.unshift('./node_modules');
+  port = process.env.VCAP_APP_PORT || 3000;
+  host = process.env.VCAP_APP_HOST || 'localhost';
   app = require('express').createServer();
   app.register('.coffee', require('coffeekup-svg'));
   app.set('view engine', 'coffee');
@@ -22,7 +24,7 @@
       }
     });
   });
-  app.listen(process.env.VMC_APP_PORT || 3000);
+  app.listen(port, host);
   io = require('socket.io');
   socket = io.listen(app);
   socket.on('connection', function(client) {
