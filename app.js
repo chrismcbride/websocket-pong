@@ -21,7 +21,7 @@
       }
     });
   });
-  app.listen(80);
+  app.listen(8080);
   io = require('socket.io');
   socket = io.listen(app);
   socket.on('connection', function(client) {

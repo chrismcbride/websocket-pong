@@ -15,7 +15,7 @@ app.get '/', (req, res) ->
 				title: 'Node Pong'
 				copyright: '&copy Chris McBride'
 
-app.listen 80
+app.listen 8080
 
 io = require 'socket.io'
 socket = io.listen app
