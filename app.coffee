@@ -27,13 +27,15 @@ app.listen port, host
 
 io = require 'socket.io'
 socket = io.listen app
-
+count = 0
 socket.on 'connection', (client) ->
-	count = 0
+
 	for own clientId, client of socket.clients
 		count++
 
-	client._onDisconnect() if count > 2
+        if count > 2
+                client._onDisconnect()
+                count--
 
 	client.send 'Player:' + count
 

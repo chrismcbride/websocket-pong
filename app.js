@@ -1,5 +1,5 @@
 (function() {
-  var app, host, io, port, socket;
+  var app, count, host, io, port, socket;
   var __hasProp = Object.prototype.hasOwnProperty;
   require.paths.unshift('./node_modules');
   port = process.env.VCAP_APP_PORT || 3000;
@@ -30,9 +30,9 @@
   app.listen(port, host);
   io = require('socket.io');
   socket = io.listen(app);
+  count = 0;
   socket.on('connection', function(client) {
-    var clientId, count, _ref;
-    count = 0;
+    var clientId, _ref;
     _ref = socket.clients;
     for (clientId in _ref) {
       if (!__hasProp.call(_ref, clientId)) continue;
