@@ -20,8 +20,15 @@ app.get '/canvas.svg', (req, res) ->
 
 app.get '/', (req, res) ->
 	res.render 'index', context:
-				title: 'Node Pong'
-				copyright: '&copy Chris McBride'
+                embed: TRUE
+                title: 'Node Pong'
+                copyright: '&copy Chris McBride'
+
+app.get '/not-embed/', (req, res) ->
+	res.render 'index', context:
+                embed: FALSE
+                title: 'Node Pong'
+                copyright: '&copy Chris McBride'
 
 app.listen port, host
 
@@ -29,15 +36,11 @@ io = require 'socket.io'
 socket = io.listen app
 count = 0
 socket.on 'connection', (client) ->
-
-	for own clientId, client of socket.clients
-		count++
-
+        for own clientId, client of socket.clients
+                count++
         if count > 2
                 client._onDisconnect()
                 count--
-
 	client.send 'Player:' + count
-
 	client.on 'message', (message) ->
 		client.broadcast message

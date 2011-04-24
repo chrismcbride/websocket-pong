@@ -22,6 +22,16 @@
   app.get('/', function(req, res) {
     return res.render('index', {
       context: {
+        embed: TRUE,
+        title: 'Node Pong',
+        copyright: '&copy Chris McBride'
+      }
+    });
+  });
+  app.get('/not-embed/', function(req, res) {
+    return res.render('index', {
+      context: {
+        embed: FALSE,
         title: 'Node Pong',
         copyright: '&copy Chris McBride'
       }
@@ -41,10 +51,11 @@
     }
     if (count > 2) {
       client._onDisconnect();
+      return count--;
     }
-    client.send('Player:' + count);
-    return client.on('message', function(message) {
-      return client.broadcast(message);
-    });
+  });
+  client.send('Player:' + count);
+  client.on('message', function(message) {
+    return client.broadcast(message);
   });
 }).call(this);
