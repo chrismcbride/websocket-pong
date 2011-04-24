@@ -1,4 +1,4 @@
-$(document).ready ->
+$(window).load ->
 	
 	playerNum = 0
 	opponentNum = 0

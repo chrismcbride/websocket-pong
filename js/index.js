@@ -1,5 +1,5 @@
 (function() {
-  $(document).ready(function() {
+  $(window).load(function() {
     var moveDistance, moveOpponent, opponentNum, playerNum, socket;
     playerNum = 0;
     opponentNum = 0;

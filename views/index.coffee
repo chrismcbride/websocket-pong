@@ -12,6 +12,6 @@ html ->
 			h1 @title
 		section id: 'content', ->
 			div id: 'game', ->
-                                embed id: 'canvas', height: '500', width: '1000', src: 'canvas.svg', type: 'image/svg+xml', pluginspage: 'http://www.adobe.com/svg/viewer/install/'		
-                                footer ->  
-				@copyright
+				embed id: 'canvas', height: '500', width: '1000', src: 'canvas.svg', type: 'image/svg+xml', pluginspage: 'http://www.adobe.com/svg/viewer/install/'
+		footer ->
+			@copyright
