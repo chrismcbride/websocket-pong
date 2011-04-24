@@ -15,6 +15,9 @@ app.get '/css/:path', (req, res) ->
 app.get '/js/:path', (req, res) ->
 	res.sendfile "js/#{req.params.path}"
 
+app.get '/canvas.svg', (req, res) ->
+	res.sendfile "canvas.svg"
+
 app.get '/', (req, res) ->
 	res.render 'index', context:
 				title: 'Node Pong'

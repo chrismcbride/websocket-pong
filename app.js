@@ -16,6 +16,9 @@
   app.get('/js/:path', function(req, res) {
     return res.sendfile("js/" + req.params.path);
   });
+  app.get('/canvas.svg', function(req, res) {
+    return res.sendfile("canvas.svg");
+  });
   app.get('/', function(req, res) {
     return res.render('index', {
       context: {
