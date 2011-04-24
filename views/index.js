@@ -30,14 +30,7 @@
         return div({
           id: 'game'
         }, function() {
-          return embed({
-            id: 'canvas',
-            height: '500',
-            width: '1000',
-            src: 'canvas.svg',
-            type: 'image/svg+xml',
-            pluginspage: 'http://www.adobe.com/svg/viewer/install/'
-          });
+          return game;
         });
       });
       return footer(function() {
