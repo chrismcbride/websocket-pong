@@ -1,0 +1,10 @@
+{
+
+  "name": "websocket-pong",
+  "version":"0.0.1",
+  "dependencies": {
+     "express":"",
+     "coffeekup":"./lib/coffeekup/0.2.2/package"
+  }
+
+}
