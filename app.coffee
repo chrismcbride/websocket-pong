@@ -1,6 +1,7 @@
+require.paths.unshift('./node_modules')
 app = require('express').createServer()
 
-app.register '.coffee', require 'coffeekup'
+app.register '.coffee', require 'coffeekup-svg'
 app.set 'view engine', 'coffee'
 app.set 'view options', layout: false
 
@@ -15,7 +16,7 @@ app.get '/', (req, res) ->
 				title: 'Node Pong'
 				copyright: '&copy Chris McBride'
 
-app.listen 3000
+app.listen process.env.VMC_APP_PORT || 3000
 
 io = require 'socket.io'
 socket = io.listen app

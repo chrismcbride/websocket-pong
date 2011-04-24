@@ -1,8 +1,9 @@
 (function() {
   var app, io, socket;
   var __hasProp = Object.prototype.hasOwnProperty;
+  require.paths.unshift('./node_modules');
   app = require('express').createServer();
-  app.register('.coffee', require('./node_modules/coffeekup/0.2.2/package'));
+  app.register('.coffee', require('coffeekup-svg'));
   app.set('view engine', 'coffee');
   app.set('view options', {
     layout: false
@@ -21,7 +22,7 @@
       }
     });
   });
-  app.listen(3000);
+  app.listen(process.env.VMC_APP_PORT || 3000);
   io = require('socket.io');
   socket = io.listen(app);
   socket.on('connection', function(client) {
