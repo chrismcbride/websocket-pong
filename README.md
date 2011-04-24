@@ -1,4 +1,3 @@
-
 A nice little pong game.
 -------------------------
 
