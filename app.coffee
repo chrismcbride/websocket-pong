@@ -1,6 +1,6 @@
 app = require('express').createServer()
 
-app.register '.coffee', require './lib/coffeekup/0.2.2/package'
+app.register '.coffee', require 'coffeekup'
 app.set 'view engine', 'coffee'
 app.set 'view options', layout: false
 
@@ -15,7 +15,7 @@ app.get '/', (req, res) ->
 				title: 'Node Pong'
 				copyright: '&copy Chris McBride'
 
-app.listen 8080
+app.listen 3000
 
 io = require 'socket.io'
 socket = io.listen app
