@@ -27,7 +27,7 @@ $(document).ready ->
 				socket.send 'M:dn'
 	
 	moveOpponent = (direction) ->
-		$('#paddle' + opponentNum).attr('y').baseVal.value += moveDistance if direction is 'up'
-		$('#paddle' + opponentNum).attr('y').baseVal.value -= moveDistance if direction is 'dn'
+		$('#paddle' + opponentNum).attr('y').baseVal.value -= moveDistance if direction is 'up'
+		$('#paddle' + opponentNum).attr('y').baseVal.value += moveDistance if direction is 'dn'
 
 

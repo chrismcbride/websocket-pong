@@ -34,10 +34,10 @@
     });
     return moveOpponent = function(direction) {
       if (direction === 'up') {
-        $('#paddle' + opponentNum).attr('y').baseVal.value += moveDistance;
+        $('#paddle' + opponentNum).attr('y').baseVal.value -= moveDistance;
       }
       if (direction === 'dn') {
-        return $('#paddle' + opponentNum).attr('y').baseVal.value -= moveDistance;
+        return $('#paddle' + opponentNum).attr('y').baseVal.value += moveDistance;
       }
     };
   });
