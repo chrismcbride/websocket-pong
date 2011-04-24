@@ -1,6 +1,6 @@
 app = require('express').createServer()
 
-app.register '.coffee', require 'coffeekup'
+app.register '.coffee', require './lib/coffeekup/0.2.2/package'
 app.set 'view engine', 'coffee'
 app.set 'view options', layout: false
 
