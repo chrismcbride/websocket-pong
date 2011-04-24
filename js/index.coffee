@@ -12,7 +12,7 @@ $(document).ready ->
 		switch prefix
 			when 'Player'
 				playerNum = rest
-				opponentNum = if playerNum is 2 then 1 else 2
+				opponentNum = if parseInt(playerNum) is 2 then 1 else 2
 			when 'M' then moveOpponent(rest)
 
 	$(document).keydown (e) ->

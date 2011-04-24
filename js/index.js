@@ -12,7 +12,7 @@
       switch (prefix) {
         case 'Player':
           playerNum = rest;
-          return opponentNum = playerNum === 2 ? 1 : 2;
+          return opponentNum = parseInt(playerNum) === 2 ? 1 : 2;
         case 'M':
           return moveOpponent(rest);
       }
