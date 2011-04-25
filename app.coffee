@@ -36,11 +36,15 @@ io = require 'socket.io'
 socket = io.listen app
 count = 0
 socket.on 'connection', (client) ->
-	for own clientId, client of socket.clients
-		count++
+	count++
+	
 	if count > 2
 		client._onDisconnect()
-		count--
-	client.send 'Player:' + count
+	else
+		client.send 'Player:' + count
+	
 	client.on 'message', (message) ->
 		client.broadcast message
+	
+	client.on 'disconnect', ->
+		count--
