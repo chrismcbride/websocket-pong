@@ -20,61 +20,19 @@
     return res.sendfile("canvas.svg");
   });
   app.get('/', function(req, res) {
-    var game;
-    return game = embed({
-      id: 'canvas',
-      height: '500',
-      width: '1000',
-      src: 'canvas.svg',
-      type: 'image/svg+xml',
-      pluginspage: 'http://www.adobe.com/svg/viewer/install/'
-    });
-  });
-  res.render('index', {
-    context: {
-      game: game,
-      title: 'Node Pong',
-      copyright: '&copy Chris McBride'
-    }
-  });
-  app.get('/not-embed/', function(req, res) {
-    var game;
-    game = svg({
-      id: 'canvas',
-      height: '500px',
-      xmlns: 'http://www.w3.org/2000/svg'
-    }, function() {
-      rect({
-        id: 'background',
-        width: '1000px',
-        height: '500px',
-        fill: 'black'
-      });
-      rect({
-        id: 'paddle1',
-        width: '25px',
-        height: '75px',
-        x: '20',
-        y: '20',
-        stroke: 'blue',
-        'stroke-width': '4',
-        fill: 'white'
-      });
-      return rect({
-        id: 'paddle2',
-        width: '25px',
-        height: '75px',
-        x: '960',
-        y: '20',
-        stroke: 'red',
-        'stroke-width': '4',
-        fill: 'white'
-      });
-    });
     return res.render('index', {
       context: {
-        game: game,
         title: 'Node Pong',
+        embed: true,
+        copyright: '&copy Chris McBride'
+      }
+    });
+  });
+  app.get('/not-embed/', function(req, res) {
+    return res.render('index', {
+      context: {
+        title: 'Node Pong',
+        embed: false,
         copyright: '&copy Chris McBride'
       }
     });
@@ -93,11 +51,11 @@
     }
     if (count > 2) {
       client._onDisconnect();
-      return count--;
+      count--;
     }
-  });
-  client.send('Player:' + count);
-  client.on('message', function(message) {
-    return client.broadcast(message);
+    client.send('Player:' + count);
+    return client.on('message', function(message) {
+      return client.broadcast(message);
+    });
   });
 }).call(this);

@@ -19,22 +19,16 @@ app.get '/canvas.svg', (req, res) ->
 	res.sendfile "canvas.svg"
 
 app.get '/', (req, res) ->
-        game = embed id: 'canvas', height: '500', width: '1000', src: 'canvas.svg', type: 'image/svg+xml', pluginspage: 'http://www.adobe.com/svg/viewer/install/'
 	res.render 'index', context:
-                game: game
-                title: 'Node Pong'
-                copyright: '&copy Chris McBride'
+		title: 'Node Pong'
+		embed: true
+		copyright: '&copy Chris McBride'
 
 app.get '/not-embed/', (req, res) ->
-        game = svg id: 'canvas', height: '500px', xmlns: 'http://www.w3.org/2000/svg', ->
-                rect id: 'background', width: '1000px', height: '500px', fill: 'black'
-                rect id: 'paddle1', width: '25px', height: '75px', x: '20', y: '20', stroke: 'blue', 'stroke-width': '4', fill: 'white'
-                rect id: 'paddle2', width: '25px', height: '75px', x: '960', y: '20', stroke: 'red', 'stroke-width': '4', fill: 'white'
-
-        res.render 'index', context:
-                game: game
-                title: 'Node Pong'
-                copyright: '&copy Chris McBride'
+	res.render 'index', context:
+		title: 'Node Pong'
+		embed: false
+		copyright: '&copy Chris McBride'
 
 app.listen port, host
 
@@ -42,11 +36,11 @@ io = require 'socket.io'
 socket = io.listen app
 count = 0
 socket.on 'connection', (client) ->
-        for own clientId, client of socket.clients
-                count++
-        if count > 2
-                client._onDisconnect()
-                count--
+	for own clientId, client of socket.clients
+		count++
+	if count > 2
+		client._onDisconnect()
+		count--
 	client.send 'Player:' + count
 	client.on 'message', (message) ->
 		client.broadcast message
