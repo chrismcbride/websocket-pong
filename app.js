@@ -70,7 +70,7 @@
     if (players.length === 0) {
       client.player_number = 1;
     } else {
-      client.player_number = players[0] ? players[0].player_number + 1 : void 0;
+      client.player_number = players[0].player_number === 1 ? 2 : 1;
     }
     console.log('\033[92mPlayer ' + client.player_number + ' has joined the game\033[0m');
     return true;

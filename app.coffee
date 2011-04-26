@@ -62,6 +62,7 @@ add_to_game = (client, players) ->
 	if players.length == 0
 		client.player_number = 1
 	else
-		client.player_number = if players[0] then players[0].player_number + 1
+		client.player_number = if players[0].player_number is 1 then 2 else 1
 	console.log('\033[92mPlayer ' + client.player_number + ' has joined the game\033[0m')
 	return true
+
