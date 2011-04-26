@@ -48,13 +48,9 @@ socket.on 'connection', (client) ->
 	client.on 'disconnect', ->
 	# This may need improvements
 		console.log('\033[91mPlayer ' + client.player_number + ' has disconnected.\033[0m')
-		if client.player_number == players[0].player_number
-			if players.length == 2
-				players[0] = players[1]
-			players.pop()
-		else if client.player_number == players[1].player_number
-			players.pop()
-		return true
+		if client.player_number == players[0].player_number and players.length == 2
+			players[0] = players[1]
+		players.pop()
 
 add_to_game = (client, players) ->
 	if players.length == 2
