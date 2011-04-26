@@ -52,7 +52,7 @@ socket.on 'connection', (client) ->
 			players[0] = players[1]
 		players.pop()
 
-add_to_game = (client, players) ->
+add_to_game = (client) ->
 	if players.length == 2
 		return false
 	if players.length == 0

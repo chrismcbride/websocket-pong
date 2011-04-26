@@ -58,7 +58,7 @@
       return players.pop();
     });
   });
-  add_to_game = function(client, players) {
+  add_to_game = function(client) {
     if (players.length === 2) {
       return false;
     }
