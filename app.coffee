@@ -34,17 +34,34 @@ app.listen port, host
 
 io = require 'socket.io'
 socket = io.listen app
-count = 0
+players = []
 socket.on 'connection', (client) ->
-	count++
-	
-	if count > 2
-		client._onDisconnect()
+	if add_to_game(client, players)
+		players.push(client)
+		client.send 'Player:' + client.player_number
 	else
-		client.send 'Player:' + count
-	
+		client._onDisconnect()
+
 	client.on 'message', (message) ->
 		client.broadcast message
-	
+
 	client.on 'disconnect', ->
-		count--
+	# This may need improvements
+		console.log('\033[91mPlayer ' + client.player_number + ' has disconnected.\033[0m')
+		if client.player_number == players[0].player_number
+			if players.length == 2
+				players[0] = players[1]
+			players.pop()
+		else if client.player_number == players[1].player_number
+			players.pop()
+		return true
+
+add_to_game = (client, players) ->
+	if players.length == 2
+		return false
+	if players.length == 0
+		client.player_number = 1
+	else
+		client.player_number = if players[0] then players[0].player_number + 1
+	console.log('\033[92mPlayer ' + client.player_number + ' has joined the game\033[0m')
+	return true
