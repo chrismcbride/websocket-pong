@@ -1,7 +1,32 @@
 require.paths.unshift('./node_modules')
 
-port = process.env.VCAP_APP_PORT or 3000
+class Game
+    constructor: (@players = []) ->
+
+    add_player: (client) ->
+        if @players.length == 2
+            return false
+        if @players.length == 0
+            client.player_number = 1
+        else
+            client.player_number = if @players[0].player_number is 1 then 2 else 1
+        this.log_join(client)
+        return true
+    
+    pop: ->
+        @players.pop()
+
+    push: (player) ->
+        @players.push(player)
+
+    log_join: (player) ->
+        console.log('\033[92mPlayer ' + player.player_number + ' has joined the game\033[0m')
+    
+    log_leave: (player) ->
+        console.log('\033[91mPlayer ' + player.player_number + ' has disconnected.\033[0m')
+
 host = process.env.VCAP_APP_HOST or 'localhost'
+port = process.env.VCAP_APP_PORT or 3000
 
 app = require('express').createServer()
 
@@ -34,31 +59,21 @@ app.listen port, host
 
 io = require 'socket.io'
 socket = io.listen app
-players = []
+
+game = new Game()
+
 socket.on 'connection', (client) ->
-	if add_to_game(client, players)
-		players.push(client)
-		client.send 'Player:' + client.player_number
-	else
-		client._onDisconnect()
+	if game.add_player(client)
+        game.push(client)
+        client.send 'Player:' + client.player_number
+    else
+        client._onDisconnect()
 
 	client.on 'message', (message) ->
 		client.broadcast message
 
 	client.on 'disconnect', ->
-	# This may need improvements
-		console.log('\033[91mPlayer ' + client.player_number + ' has disconnected.\033[0m')
-		if client.player_number == players[0].player_number and players.length == 2
-			players[0] = players[1]
-		players.pop()
-
-add_to_game = (client) ->
-	if players.length == 2
-		return false
-	if players.length == 0
-		client.player_number = 1
-	else
-		client.player_number = if players[0].player_number is 1 then 2 else 1
-	console.log('\033[92mPlayer ' + client.player_number + ' has joined the game\033[0m')
-	return true
-
+        game.log_leave(client)
+		if client.player_number == game.players[0].player_number and game.players.length == 2
+			game.players[0] = game.players[1]
+		game.pop()
