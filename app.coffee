@@ -63,17 +63,18 @@ socket = io.listen app
 game = new Game()
 
 socket.on 'connection', (client) ->
-	if game.add_player(client)
+    if game.add_player(client)
         game.push(client)
         client.send 'Player:' + client.player_number
     else
         client._onDisconnect()
 
-	client.on 'message', (message) ->
-		client.broadcast message
+    client.on 'message', (message) ->
+        client.broadcast message
 
-	client.on 'disconnect', ->
+    client.on 'disconnect', ->
         game.log_leave(client)
-		if client.player_number == game.players[0].player_number and game.players.length == 2
-			game.players[0] = game.players[1]
-		game.pop()
+        if client.player_number == game.players[0].player_number and game.players.length == 2
+            game.players[0] = game.players[1]
+        game.pop()
+
